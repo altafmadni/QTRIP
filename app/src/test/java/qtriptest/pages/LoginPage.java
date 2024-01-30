@@ -21,7 +21,7 @@ public class LoginPage {
 
     public LoginPage(WebDriver driver){
         this.driver = driver;
-        AjaxElementLocatorFactory ajax = new AjaxElementLocatorFactory(driver, 30);
+        AjaxElementLocatorFactory ajax = new AjaxElementLocatorFactory(driver, 50);
         PageFactory.initElements(ajax, this);
     }
 

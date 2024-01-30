@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="qtriptest.tests">
+    <test name = "testCase_01">
+        <classes>
+            <class name="qtriptest.tests.testCase_01"></class>
+            <class name="qtriptest.tests.testCase_02"></class>
+            <class name="qtriptest.tests.testCase_03"></class>
+            <class name="qtriptest.tests.testCase_04"></class>
+        </classes>    
+    </test>
+</suite>

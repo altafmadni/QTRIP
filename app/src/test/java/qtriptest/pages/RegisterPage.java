@@ -1,14 +1,14 @@
 package qtriptest.pages;
 
 import java.util.UUID;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
 public class RegisterPage {
-    RemoteWebDriver driver;
+    WebDriver driver;
     String URL = "https://qtripdynamic-qa-frontend.vercel.app/pages/register/";
 
     @FindBy(id="floatingInput")
@@ -23,9 +23,9 @@ public class RegisterPage {
     @FindBy(xpath="//button[text()='Register Now']")
     WebElement registerNowButton;
 
-    public RegisterPage(RemoteWebDriver driver){
-        this.driver = driver;
-        AjaxElementLocatorFactory ajax = new AjaxElementLocatorFactory(driver, 30);
+    public RegisterPage(WebDriver driver2){
+        this.driver = driver2;
+        AjaxElementLocatorFactory ajax = new AjaxElementLocatorFactory(driver2, 50);
         PageFactory.initElements(ajax, this);
     }
 
@@ -49,7 +49,7 @@ public class RegisterPage {
         }
         
         lastGeneratedEmail = username;
-        // System.out.println("Last generated dynamic username"+lastGeneratedEmail);
+        System.out.println("Last generated dynamic username"+lastGeneratedEmail);
         
         WebElement usernameField = emailTextbox;
         usernameField.sendKeys(username);
