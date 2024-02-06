@@ -76,11 +76,9 @@ public class testCase_04 {
         AdventureDetailsPage adDetail = new AdventureDetailsPage(driver);
         adDetail.enterReservationDetails(datasetValues[2], datasetValues[3], datasetValues[4]);
         test.log(LogStatus.PASS, "Entering reservation details");
-        // logStatus("driver", "Entering reservation details", "success");
         
         status = adDetail.verifyReservation();
         ReportSingleton.testLogger(status, "Reservation success message is displayed.", driver);
-        // logStatus("driver", "Reservation success message is displayed.", "success");
 
         //repeat above process 2 more times
         home.navigatetoHomePage();
@@ -88,34 +86,28 @@ public class testCase_04 {
 
         status = home.searchCity((datasetValues1[0]));
         ReportSingleton.testLogger(status, "City found", driver);
-        // logStatus("driver", "City found", "success");
         
         adventure.searchAdventure(datasetValues1[1]);
         adDetail.enterReservationDetails(datasetValues1[2], datasetValues1[3], datasetValues1[4]);
         test.log(LogStatus.PASS, "Entering reservation details");
-        // logStatus("driver", "Entering reservation details", "success");
 
         status = adDetail.verifyReservation();
         ReportSingleton.testLogger(status, "Reservation success message is displayed.", driver);
-        // logStatus("driver", "Reservation success message is displayed.", "success");
 
         home.navigatetoHomePage();
         Thread.sleep(2000);
 
         status = home.searchCity((datasetValues2[0]));
         ReportSingleton.testLogger(status, "City found", driver);
-        // logStatus("driver", "City found", "success");
 
         adventure.searchAdventure(datasetValues2[1]);
         adDetail.enterReservationDetails(datasetValues2[2], datasetValues2[3], datasetValues2[4]);
         test.log(LogStatus.PASS, "Entering reservation details");
-        // logStatus("driver", "Entering reservation details", "success");
 
         status = adDetail.verifyReservation();
         ReportSingleton.testLogger(status, "Reservation success message is displayed.", driver);
 
         adDetail.navigateToHistoryPage();
-        // logStatus("driver", "Navigating to history page", "success");
         test.log(LogStatus.PASS, "Navigating to history page");
 
         HistoryPage history = new HistoryPage(driver);
