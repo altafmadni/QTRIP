@@ -1,21 +1,30 @@
 package qtriptest.tests;
 
+// import qtriptest.BaseTest;
 import qtriptest.DP;
 import qtriptest.DriverSingleton;
+import qtriptest.ReportSingleton;
 import qtriptest.pages.HomePage;
 import qtriptest.pages.LoginPage;
 import qtriptest.pages.RegisterPage;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-public class testCase_01{
-
+public class testCase_01 {
+	private static ExtentReports reports = ReportSingleton.getInstance();;
+	private static ExtentTest test;
     static WebDriver driver;
+
 	public static void logStatus(String type, String message, String status) {
 		System.out.println(String.format("%s |  %s  |  %s | %s",
 				String.valueOf(java.time.LocalDateTime.now()), type, message, status));
@@ -30,23 +39,34 @@ public class testCase_01{
 	}
 
     @Test(priority=1, groups={"Login Flow"}, dataProvider = "Qtriptestdata",dataProviderClass = DP.class ,description = "TestCase01", enabled = true)
-    public void TestCase01(String email, String password) throws InterruptedException, MalformedURLException{
-		
+    public void TestCase01(String email, String password) throws InterruptedException, IOException{
+		test = ReportSingleton.createTest("TestCase01");
 		RegisterPage register = new RegisterPage(driver);
         register.navigatetoRegisterPage();
         Thread.sleep(3000);
-        Assert.assertTrue(register.registerNewUser(email, password, true));
+
+       	boolean status= register.registerNewUser(email, password, true);
+		ReportSingleton.testLogger(status, "New User registration", driver);
         String loginEmail = register.lastGeneratedEmail;
         LoginPage login = new LoginPage(driver);
         Thread.sleep(3000);
-        Assert.assertTrue(login.loginUser(loginEmail,password));
-		logStatus("driver", "New User login", "Success");
-        HomePage home = new HomePage(driver);
-        Assert.assertTrue(home.logout());
-		logStatus("driver", "Logout user", "Success");
 
-        
+        status = login.loginUser(loginEmail,password);
+		ReportSingleton.testLogger(status, "New User Login",driver);
+        HomePage home = new HomePage(driver);
+		
+        status = home.logout();
+		ReportSingleton.testLogger(status, "Logout user",driver);
+		ReportSingleton.endTest();
     }
+
+	@AfterSuite(alwaysRun = true, enabled = true)
+	public static void closeDriver() throws MalformedURLException {
+		ReportSingleton.closeExtentReport();
+		driver.close();
+		// driver.quit();
+		logStatus("driver", "Quitting driver", "Success");
+	}
 
 }
 

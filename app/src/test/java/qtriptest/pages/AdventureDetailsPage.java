@@ -1,5 +1,7 @@
 package qtriptest.pages;
 
+
+import qtriptest.SeleniumWrapper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,20 +35,25 @@ public class AdventureDetailsPage {
         PageFactory.initElements(ajx, this);
     }
 
+    SeleniumWrapper wrap = new SeleniumWrapper(driver);
     public void enterReservationDetails(String name, String date, String count) throws InterruptedException{
         Thread.sleep(2000);
         WebElement customerName = this.customerName;
-        customerName.sendKeys(name);
+        // customerName.sendKeys(name);
+        wrap.sendKeys(customerName, name);
 
         WebElement registrationDate = this.registrationDate;
-        registrationDate.sendKeys(date);
+        // registrationDate.sendKeys(date);
+        wrap.sendKeys(registrationDate, date);
 
         WebElement personCount = this.personCount;
-        personCount.clear();
-        personCount.sendKeys(count);
+        // personCount.clear();
+        // personCount.sendKeys(count);
+        wrap.sendKeys(personCount, count);
 
         WebElement reserveBtn = this.reserveBtn;
-        reserveBtn.click();
+        // reserveBtn.click();
+        wrap.click(reserveBtn,this.driver);
     }
 
     public boolean verifyReservation() throws InterruptedException{
@@ -62,7 +69,7 @@ public class AdventureDetailsPage {
     public void navigateToHistoryPage() throws InterruptedException{
         Thread.sleep(2000);
         WebElement reservationPageLink = this.reservationPageLink;
-        reservationPageLink.click();
+        // reservationPageLink.click(reservationPageLink);
+        wrap.click(reservationPageLink,this.driver);
     }
-
 }

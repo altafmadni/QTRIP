@@ -1,5 +1,7 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
+import java.util.NoSuchElementException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,21 +37,23 @@ public class HomePage {
     
     public HomePage(WebDriver driver){
         this.driver = driver;
-        AjaxElementLocatorFactory ajax = new AjaxElementLocatorFactory(driver, 50);
+        AjaxElementLocatorFactory ajax = new AjaxElementLocatorFactory(driver, 10);
         PageFactory.initElements(ajax, this);
     }
 
+    SeleniumWrapper wrap = new SeleniumWrapper(driver);
     public void navigatetoHomePage(){
-        
-        if(driver.getCurrentUrl() != URL){
-            driver.get(URL);
-        }
+        wrap.navigateToUrl(URL, this.driver);
+        // if(driver.getCurrentUrl() != URL){
+        //     driver.get(URL);
+        // }
         driver.manage().window().maximize();
     }
 
     public boolean logout() throws InterruptedException{
         Thread.sleep(2000);
-        logoutButton.click();
+        // logoutButton.click();
+        wrap.click(logoutButton,this.driver);
         
         if(loginHereBtn.isDisplayed()){
             return true;
@@ -59,22 +63,31 @@ public class HomePage {
     }
 
     public boolean searchCity(String cityName) throws InterruptedException{
-        searchBox.clear();
+        try{
+        // searchBox.clear();
         WebElement searchBox = this.searchBox;
-        searchBox.sendKeys(cityName);
+        // searchBox.sendKeys(cityName);
+        wrap.sendKeys(searchBox, cityName);
         Thread.sleep(2000);
-        searchBox.sendKeys(Keys.ENTER);
-        Thread.sleep(2000);
+        // searchBox.sendKeys(Keys.ENTER);
+        // Thread.sleep(2000);
         
-        System.out.println(searchedCity.getText()+" city is found.");
-        searchedCity.click();
+        // System.out.println(searchedCity.getText()+" city is found.");
+        wrap.click(searchedCity,this.driver);
         return true;      
+        }
+        catch(NoSuchElementException e){
+            // return false;
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean searchInvalidCity(String cityName) throws InterruptedException{
-        searchBox.clear();
+        // searchBox.clear();
         WebElement searchBox = this.searchBox;
-        searchBox.sendKeys(cityName);
+        // searchBox.sendKeys(cityName);
+        wrap.sendKeys(searchBox,cityName);
         Thread.sleep(2000);
         searchBox.sendKeys(Keys.ENTER);
         Thread.sleep(2000);
@@ -88,5 +101,4 @@ public class HomePage {
         return true;
 
     }
-
 }

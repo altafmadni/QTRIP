@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.UUID;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class RegisterPage {
+public class RegisterPage  {
     WebDriver driver;
     String URL = "https://qtripdynamic-qa-frontend.vercel.app/pages/register/";
 
@@ -34,10 +35,12 @@ public class RegisterPage {
 				String.valueOf(java.time.LocalDateTime.now()), type, message, status));
 	}
 
+    SeleniumWrapper wrap = new SeleniumWrapper(driver);
     public void navigatetoRegisterPage(){
-        if(driver.getCurrentUrl() != URL){
-        driver.get(URL);
-        }
+        // if(driver.getCurrentUrl() != URL){
+        // driver.get(URL);
+        // }
+        wrap.navigateToUrl(URL,this.driver);
         driver.manage().window().maximize();
         logStatus("driver", "Navigate to register page", "Success");
     }
@@ -52,17 +55,21 @@ public class RegisterPage {
         System.out.println("Last generated dynamic username"+lastGeneratedEmail);
         
         WebElement usernameField = emailTextbox;
-        usernameField.sendKeys(username);
+        // usernameField.sendKeys(username);
+        wrap.sendKeys(usernameField, username);
 
         WebElement passwordField = passwordTextbox;
-        passwordField.sendKeys(password);
+        // passwordField.sendKeys(password);
+        wrap.sendKeys(passwordField, password);
 
         
         WebElement confirmPasswordField = confirmPasswordTextbox;
-        confirmPasswordField.sendKeys(password);
+        // confirmPasswordField.sendKeys(password);
+        wrap.sendKeys(confirmPasswordField, password);
 
         WebElement registerNow = registerNowButton;
-        registerNow.click();
+        // registerNow.click();
+        wrap.click(registerNow,this.driver);
         
         Thread.sleep(2000);
 
@@ -73,6 +80,5 @@ public class RegisterPage {
         }
         logStatus("driver", "New user registeration", "Success");
         return true;
-    }
-    
+    }   
 }

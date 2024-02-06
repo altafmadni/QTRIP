@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,11 +10,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.Select;
 
-public class AdventurePage {
+public class AdventurePage{
    WebDriver driver;
    String URL = "https://qtripdynamic-qa-frontend.vercel.app/pages/adventures/";
    
-   @FindBy(id="duration-select")
+   @FindBy(xpath ="//select[@name='duration']")
    WebElement durationDropdown;
 
    @FindBy(xpath="//h5[text()='Duration']/../p")
@@ -47,16 +48,19 @@ public class AdventurePage {
       PageFactory.initElements(ajax, this);
    }
 
+   SeleniumWrapper wrap = new SeleniumWrapper(driver);
+   
    public void navigateToAdventurePage(){
-      if(driver.getCurrentUrl() != URL){
-         driver.get(URL);
-      }
+      wrap.navigateToUrl(URL,this.driver);
+      // if(driver.getCurrentUrl() != URL){
+      //    driver.get(URL);
+      // }
    }
 
    public void filterByDuration(String hours) throws InterruptedException{
       Thread.sleep(2000); 
       WebElement durationDropdown = this.durationDropdown;
-      durationDropdown.click();
+      wrap.click(durationDropdown,this.driver);
       Select duration = new Select(durationDropdown);
       duration.selectByVisibleText(hours);
         
@@ -77,7 +81,8 @@ public class AdventurePage {
    public void clearDurationFilter() throws InterruptedException{
       Thread.sleep(2000); 
       WebElement clearDurationFilter = this.clearDurationFilter;
-      clearDurationFilter.click();
+      // clearDurationFilter.click();
+      wrap.click(clearDurationFilter,this.driver);
       
    }
 
@@ -85,7 +90,8 @@ public class AdventurePage {
    public void filterByCategory(String category) throws InterruptedException{
       Thread.sleep(2000); 
       WebElement categoryDropdown = this.categoryDropdown;
-      categoryDropdown.click();
+      // categoryDropdown.click();
+      wrap.click(categoryDropdown,this.driver);
       Select selectCategory = new Select(categoryDropdown);
       selectCategory.selectByVisibleText(category);
         
@@ -106,7 +112,8 @@ public class AdventurePage {
    public void clearCategoryFilter() throws InterruptedException{
       Thread.sleep(2000); 
       WebElement clearCategoryFilter = this.clearCategoryFilter;
-      clearCategoryFilter.click();
+      // clearCategoryFilter.click();
+      wrap.click(clearCategoryFilter,this.driver);
    }
 
    public boolean unfilteredResults(String unfilteredResult) throws InterruptedException{
@@ -131,19 +138,20 @@ public class AdventurePage {
       }
       return true;
    }
-
-   // @FindBy()
-   
    
    public void searchAdventure(String adventureName) throws InterruptedException{
       Thread.sleep(2000);
       WebElement adventure = searchAdventure;
-      adventure.sendKeys(adventureName);
+      // adventure.sendKeys(adventureName);
+      wrap.click(adventure,this.driver);
       Thread.sleep(2000);
       Actions act = new Actions(driver);
       act.moveToElement(this.adventureName).click().perform();
       
    }
-
-
 }
+
+
+
+// public class AdventurePage {
+// }

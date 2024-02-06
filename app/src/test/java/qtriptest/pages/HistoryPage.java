@@ -1,6 +1,7 @@
 
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import java.util.List;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -42,6 +43,7 @@ public class HistoryPage {
         PageFactory.initElements(ajx, this);
     }
     
+    SeleniumWrapper wrap = new SeleniumWrapper(driver);
     WebElement transID;
     public void getTransactionID() throws InterruptedException{
         Thread.sleep(3000);
@@ -52,7 +54,8 @@ public class HistoryPage {
     public void cancelReservation() throws InterruptedException{
         Thread.sleep(2000);
         WebElement cancelReservation = this.cancelReservation;
-        cancelReservation.click();
+        // cancelReservation.click();
+        wrap.click(cancelReservation,this.driver);
     }
 
     public boolean verifyReservationExistence() throws InterruptedException{
@@ -80,5 +83,8 @@ public class HistoryPage {
         }
         
     }
-
 }
+
+
+// public class HistoryPage {
+// }

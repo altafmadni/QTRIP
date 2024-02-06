@@ -1,5 +1,6 @@
 package qtriptest.pages;
 
+import qtriptest.SeleniumWrapper;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -25,22 +26,29 @@ public class LoginPage {
         PageFactory.initElements(ajax, this);
     }
 
+
+    
+    SeleniumWrapper wrap = new SeleniumWrapper(driver);
     public void navigatetoLoginPage(){
-        if(driver.getCurrentUrl() != URL){
-            driver.get(URL);
-        }
+        // if(driver.getCurrentUrl() != URL){
+        //     driver.get(URL);
+        // }
+        wrap.navigateToUrl(URL, this.driver);
     }
 
     public boolean loginUser(String email, String password) throws InterruptedException{
         WebElement inputEmail = emailTextbox;
-        inputEmail.sendKeys(email);
+        // inputEmail.sendKeys(email);
+        wrap.sendKeys(inputEmail, email);
 
         WebElement inputPassword = passwordTextbox;
-        inputPassword.sendKeys(password);
+        // inputPassword.sendKeys(password);
+        wrap.sendKeys(inputPassword, password);
         
         Thread.sleep(2000);
         WebElement clickLogin = loginButton;
-        clickLogin.click();
+        // clickLogin.click();
+        wrap.click(clickLogin,this.driver);
 
         Thread.sleep(2000);
 
@@ -51,5 +59,4 @@ public class LoginPage {
         return true;
     }
 
-    
 }
