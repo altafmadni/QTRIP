@@ -57,4 +57,11 @@ public class ReportSingleton {
         FileUtils.copyFile(srcFile, destFile);
         return errFilePath;
     }
+
+    public static void captureFinalScreenshot(WebDriver driver) throws IOException {
+        String finalScreenshotPath = System.getProperty("user.dir") + File.separator + "reports" + File.separator + "finalScreenshot.png";
+        File finalScreenshotFile = new File(finalScreenshotPath);
+        FileUtils.copyFile(((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE), finalScreenshotFile);
+        test.log(LogStatus.INFO, "Final Page Screenshot: " + test.addScreenCapture(finalScreenshotFile.getAbsolutePath()));
+    }
 }

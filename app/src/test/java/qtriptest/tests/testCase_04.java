@@ -120,14 +120,9 @@ public class testCase_04 {
 
         HistoryPage history = new HistoryPage(driver);
         history.verifyMultipleReservation();
+
+		ReportSingleton.captureFinalScreenshot(driver);
+        ReportSingleton.endTest();
     }
-
-    // @AfterSuite
-	// public void quitDriver() throws MalformedURLException {
-	// 	driver.close();
-	// 	// driver.quit();
-	// 	logStatus("driver", "Quitting driver", "Success");
-	// }
-
 }
 

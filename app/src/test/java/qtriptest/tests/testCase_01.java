@@ -57,6 +57,7 @@ public class testCase_01 {
 		
         status = home.logout();
 		ReportSingleton.testLogger(status, "Logout user",driver);
+		ReportSingleton.captureFinalScreenshot(driver);
 		ReportSingleton.endTest();
     }
 

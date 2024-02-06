@@ -76,6 +76,7 @@ public class testCase_03 {
         status = history.verifyReservationExistence();
         ReportSingleton.testLogger(!status, "Existence of reservation log verified.", driver);
 
+		ReportSingleton.captureFinalScreenshot(driver);
         ReportSingleton.endTest();
     }
 }

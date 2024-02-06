@@ -1,3 +1,18 @@
+<extentreports>
 <configuration>
 
+<documentTitle>QTrip Regression Suite</documentTitle>
+
+<encoding>UTF-8</encoding>
+
+<theme>Standard</theme>
+
+<reportName align="center">
+
+<message>Regression test for QTrip</message>
+
+</reportName>
+
+<testViewCharLocation>bottom</testVoewCharLocation>
 </configuration>
+</extentreports>

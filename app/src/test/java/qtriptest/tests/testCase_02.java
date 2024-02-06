@@ -76,6 +76,7 @@ public class testCase_02 {
         status = adventure.unfilteredResults(ExpectedUnFilteredResults);
         ReportSingleton.testLogger(status,"Unfiltered results verification",driver);
 
+		ReportSingleton.captureFinalScreenshot(driver);
         ReportSingleton.endTest();
     }
 }
